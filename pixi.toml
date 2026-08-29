@@ -1,0 +1,38 @@
+[workspace]
+name = "kalman-mojo"
+version = "0.1.0"
+authors = ["Marius Seritan <marius@seritan.net>"]
+description = "Kalman filtering and RTS smoothing for offline track refinement, in pure Mojo"
+preview = ["pixi-build"]
+channels = [
+    "https://conda.modular.com/max-nightly",
+    "conda-forge",
+]
+platforms = ["osx-arm64", "linux-64", "linux-aarch64"]
+
+[dependencies]
+mojo = "==1.0.0"
+
+[tasks]
+test = "mojo run -I src tests/test_kalman.mojo"
+
+# ── pixi-build: consumable as a pixi source dependency ──────────────────────
+[package]
+name = "kalman-mojo"
+version = "0.1.0"
+
+[package.build]
+backend = { name = "pixi-build-mojo", version = "0.*" }
+
+[package.build.config.pkg]
+path = "src/kalman"
+name = "kalman"
+
+[package.host-dependencies]
+mojo-compiler = "==1.0.0"
+
+[package.build-dependencies]
+mojo-compiler = "==1.0.0"
+
+[package.run-dependencies]
+mojo-compiler = "==1.0.0"
